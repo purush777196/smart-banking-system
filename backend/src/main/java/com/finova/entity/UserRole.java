@@ -1,0 +1,15 @@
+package com.finova.entity;
+
+public enum UserRole {
+    SUPER_ADMIN,
+    BRANCH_MANAGER,
+    CUSTOMER,
+    EMPLOYEE,
+    LOAN_OFFICER,
+    FRAUD_ANALYST,
+    FINANCE_MANAGER,
+    COMPLIANCE_OFFICER,
+    SUPPORT_AGENT,
+    ANALYTICS_HEAD
+}
+
