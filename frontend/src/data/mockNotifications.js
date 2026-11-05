@@ -1,0 +1,48 @@
+export const MOCK_NOTIFICATIONS = [
+  {
+    id: 'notif-1',
+    title: 'High Value Wire Transfer',
+    message: '$124,500.00 transferred to Chase Manhattan Bank for approval.',
+    time: '4 mins ago',
+    read: false,
+    type: 'warning',
+    category: 'Transaction',
+  },
+  {
+    id: 'notif-2',
+    title: 'Automated Fraud Alert Triggered',
+    message: 'Rapid consecutive withdrawals detected on Account #FIN-4820.',
+    time: '28 mins ago',
+    read: false,
+    type: 'danger',
+    category: 'Security',
+  },
+  {
+    id: 'notif-3',
+    title: 'New Commercial Loan Application',
+    message: 'Apex Logistics LLC submitted documentation for a $2.5M credit facility.',
+    time: '1 hour ago',
+    read: false,
+    type: 'info',
+    category: 'Loans',
+  },
+  {
+    id: 'notif-4',
+    title: 'Quarterly Audit Report Ready',
+    message: 'Q3 Financial & Regulatory Compliance compilation is ready for review.',
+    time: '3 hours ago',
+    read: true,
+    type: 'success',
+    category: 'Compliance',
+  },
+  {
+    id: 'notif-5',
+    title: 'System Maintenance Scheduled',
+    message: 'Core ledger synchronization planned for Sunday 02:00 AM UTC.',
+    time: 'Yesterday',
+    read: true,
+    type: 'info',
+    category: 'System',
+  },
+];
+
