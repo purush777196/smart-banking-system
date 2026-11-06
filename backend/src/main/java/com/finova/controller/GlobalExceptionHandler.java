@@ -10,6 +10,7 @@ import com.finova.exception.IdempotencyConflictException;
 import com.finova.exception.InactiveAccountException;
 import com.finova.exception.InsufficientBalanceException;
 import com.finova.exception.InvalidAccountOperationException;
+import com.finova.exception.TransactionNotFoundException;
 import com.finova.exception.UnauthorizedAccountAccessException;
 import com.finova.exception.UnauthorizedCustomerAccessException;
 import com.finova.exception.UserNotFoundException;
@@ -47,6 +48,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BankAccountNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleBankAccountNotFound(BankAccountNotFoundException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.NOT_FOUND, "Not Found", ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(TransactionNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleTransactionNotFound(TransactionNotFoundException ex, HttpServletRequest request) {
         return buildErrorResponse(HttpStatus.NOT_FOUND, "Not Found", ex.getMessage(), request);
     }
 

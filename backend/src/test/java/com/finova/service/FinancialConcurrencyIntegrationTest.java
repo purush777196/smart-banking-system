@@ -97,10 +97,17 @@ public class FinancialConcurrencyIntegrationTest {
     }
 
     private void cleanDatabase() {
-        bankTransactionRepository.deleteAllInBatch();
-        bankAccountRepository.deleteAllInBatch();
-        customerRepository.deleteAllInBatch();
-        userRepository.deleteAllInBatch();
+        userRepository.findByEmail("concurrency.test@finova.bank").ifPresent(user -> {
+            customerRepository.findByUserId(user.getId()).ifPresent(cust -> {
+                List<BankAccount> accounts = bankAccountRepository.findByCustomerId(cust.getId());
+                for (BankAccount acc : accounts) {
+                    bankTransactionRepository.deleteAll(bankTransactionRepository.findByAccountId(acc.getId()));
+                }
+                bankAccountRepository.deleteAll(accounts);
+                customerRepository.delete(cust);
+            });
+            userRepository.delete(user);
+        });
     }
 
     // 1. Two concurrent withdrawals against one account cannot overdraw it

@@ -6,6 +6,7 @@ import com.finova.entity.enums.TransactionType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Optional;
  * account-level statement lookups, status filtering, and double-entry transfer group tracing.
  */
 @Repository
-public interface BankTransactionRepository extends JpaRepository<BankTransaction, Long> {
+public interface BankTransactionRepository extends JpaRepository<BankTransaction, Long>, JpaSpecificationExecutor<BankTransaction> {
 
     Optional<BankTransaction> findByTransactionReference(String transactionReference);
 

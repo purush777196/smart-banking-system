@@ -68,6 +68,17 @@ Finova is a full-stack banking management application built as an academic proje
 
 \- Phase 3: Authentication and authorization — Completed
 
+\- Phase 4: Account & Transaction Operations — Completed (PR #7 through PR #11)
+
+\## Transaction REST APIs (PR #11)
+
+\- `POST /api/accounts/{accountId}/deposits`: Atomic, idempotent customer deposits
+\- `POST /api/accounts/{accountId}/withdrawals`: Atomic, idempotent customer withdrawals with overdraft protection
+\- `GET /api/accounts/{accountId}/transactions`: Paginated, sorted, and filtered transaction history
+\- `GET /api/transactions/{transactionReference}`: Transaction reference lookup
+
+See `backend/API_DOCUMENTATION.md` for full endpoint specifications.
+
 
 
 \## Disclaimer
