@@ -1,7 +1,12 @@
 package com.finova.controller;
 
+import com.finova.exception.AccountAlreadyExistsException;
+import com.finova.exception.AccountCreationException;
+import com.finova.exception.BankAccountNotFoundException;
 import com.finova.exception.CustomerAlreadyExistsException;
 import com.finova.exception.CustomerNotFoundException;
+import com.finova.exception.InvalidAccountOperationException;
+import com.finova.exception.UnauthorizedAccountAccessException;
 import com.finova.exception.UnauthorizedCustomerAccessException;
 import com.finova.exception.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,6 +41,11 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.NOT_FOUND, "Not Found", ex.getMessage(), request);
     }
 
+    @ExceptionHandler(BankAccountNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleBankAccountNotFound(BankAccountNotFoundException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.NOT_FOUND, "Not Found", ex.getMessage(), request);
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleUserNotFound(UserNotFoundException ex, HttpServletRequest request) {
         return buildErrorResponse(HttpStatus.NOT_FOUND, "Not Found", ex.getMessage(), request);
@@ -46,9 +56,29 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.CONFLICT, "Conflict", ex.getMessage(), request);
     }
 
+    @ExceptionHandler(AccountAlreadyExistsException.class)
+    public ResponseEntity<Map<String, Object>> handleAccountAlreadyExists(AccountAlreadyExistsException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.CONFLICT, "Conflict", ex.getMessage(), request);
+    }
+
     @ExceptionHandler(UnauthorizedCustomerAccessException.class)
     public ResponseEntity<Map<String, Object>> handleUnauthorizedCustomerAccess(UnauthorizedCustomerAccessException ex, HttpServletRequest request) {
         return buildErrorResponse(HttpStatus.FORBIDDEN, "Forbidden", ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(UnauthorizedAccountAccessException.class)
+    public ResponseEntity<Map<String, Object>> handleUnauthorizedAccountAccess(UnauthorizedAccountAccessException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.FORBIDDEN, "Forbidden", ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(InvalidAccountOperationException.class)
+    public ResponseEntity<Map<String, Object>> handleInvalidAccountOperation(InvalidAccountOperationException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, "Bad Request", ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(AccountCreationException.class)
+    public ResponseEntity<Map<String, Object>> handleAccountCreation(AccountCreationException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, "Bad Request", ex.getMessage(), request);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
