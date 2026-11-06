@@ -5,6 +5,10 @@ import com.finova.exception.AccountCreationException;
 import com.finova.exception.BankAccountNotFoundException;
 import com.finova.exception.CustomerAlreadyExistsException;
 import com.finova.exception.CustomerNotFoundException;
+import com.finova.exception.DuplicateTransactionException;
+import com.finova.exception.IdempotencyConflictException;
+import com.finova.exception.InactiveAccountException;
+import com.finova.exception.InsufficientBalanceException;
 import com.finova.exception.InvalidAccountOperationException;
 import com.finova.exception.UnauthorizedAccountAccessException;
 import com.finova.exception.UnauthorizedCustomerAccessException;
@@ -74,6 +78,26 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidAccountOperationException.class)
     public ResponseEntity<Map<String, Object>> handleInvalidAccountOperation(InvalidAccountOperationException ex, HttpServletRequest request) {
         return buildErrorResponse(HttpStatus.BAD_REQUEST, "Bad Request", ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(InsufficientBalanceException.class)
+    public ResponseEntity<Map<String, Object>> handleInsufficientBalance(InsufficientBalanceException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, "Insufficient Balance", ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(InactiveAccountException.class)
+    public ResponseEntity<Map<String, Object>> handleInactiveAccount(InactiveAccountException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, "Inactive Account", ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(IdempotencyConflictException.class)
+    public ResponseEntity<Map<String, Object>> handleIdempotencyConflict(IdempotencyConflictException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.CONFLICT, "Idempotency Conflict", ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(DuplicateTransactionException.class)
+    public ResponseEntity<Map<String, Object>> handleDuplicateTransaction(DuplicateTransactionException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.CONFLICT, "Duplicate Transaction", ex.getMessage(), request);
     }
 
     @ExceptionHandler(AccountCreationException.class)
